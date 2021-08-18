@@ -2,20 +2,24 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-enum FigureType
+enum class FigureType
 {
 	rhombus,
 	square,
 	circle,
-	triangle
+	triangle,
+	none
 };
 
 class Object
 {
-	FigureType type;
+private:
+	FigureType type = FigureType::none;
 	sf::Vector2f coor;
 
 public:
-	Object();
+	Object(FigureType type, sf::Vector2f coor);
+	FigureType getType();
+	sf::Vector2f getCoor();
 };
 
