@@ -1,5 +1,10 @@
 #include "Object.h"
 
+Object::Object()
+{
+	this->type = FigureType::empty;
+}
+
 Object::Object(FigureType type, sf::Vector2f coor)
 {
 	this->type = type;

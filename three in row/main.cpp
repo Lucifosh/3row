@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Object.h"
+#include "Field.h"
 
 int main()
 {
@@ -13,10 +14,23 @@ int main()
 	}*/
 	std::cout << vm.height << ' ' << vm.width;
 	sf::RenderWindow w(vm, "t", sf::Style::Fullscreen);
-
-	int objSize = vm.height / 12;
-	Object o(FigureType::square, sf::Vector2f(vm.width/12, vm.height/12));
-
+	Field field(10);
+	field.Draw(w, vm);
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (j % 2 == 0)
+				field.setFigure(i, j, FigureType::square);
+			else if (j == 3)
+				field.setFigure(i, j, FigureType::triangle);
+			else if(j == 5)
+				field.setFigure(i, j, FigureType::rhombus);
+			else
+				field.setFigure(i, j, FigureType::circle);
+		}
+	}
+	
 	while (w.isOpen())
 	{
 		w.clear(sf::Color::Black);
@@ -27,19 +41,8 @@ int main()
 
 		}
 
-		if (o.getType() == FigureType::square)
-		{
-			sf::RectangleShape r;
-			r.setFillColor(sf::Color::Green);
-			r.setPosition(o.getCoor());
-			r.setSize(sf::Vector2f(objSize, objSize));
-			w.draw(r);
-		}
-		else if (o.getType() == FigureType::circle)
-		{
-			sf::CircleShape r;
-			//r.setFillColor()
-		}
+		field.Draw(w, vm);
+		
 
 		w.display();
 	}
