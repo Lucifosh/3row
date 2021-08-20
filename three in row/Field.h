@@ -5,13 +5,19 @@
 class Field
 {
 	Object** field;
-	int size = 0;
 	sf::VideoMode vm;
 
 public:
+	int x = 0;
+	int y = 0;
+	int objSize = 0;
+	int size = 0;
+
 	Field(int size);
 	Field();
 	void Draw(sf::RenderWindow& window, sf::VideoMode vm);
-	void setFigure(int x, int y, FigureType type);
+	void setFigure(FigureType type, int x, int y);
+	int getX(int x);
+	int getY(int y);
 };
 

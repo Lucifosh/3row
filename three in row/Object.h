@@ -17,13 +17,12 @@ class Object
 private:
 	FigureType type = FigureType::none;
 	sf::Vector2f coor;
-	int x;
-	int y;
+	int x = 0;
+	int y = 0;
 
 public:
 	Object();
-	Object(FigureType type, sf::Vector2f coor);
+	Object(FigureType type, int x, int y);
 	FigureType getType();
-	sf::Vector2f getCoor();
 };
 
