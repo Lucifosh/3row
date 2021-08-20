@@ -17,6 +17,8 @@ public:
 	Field();
 	void Draw(sf::RenderWindow& window, sf::VideoMode vm);
 	void setFigure(FigureType type, int x, int y);
+	void swap(int x1, int y1, int x2, int y2);
+	Object getFigure(int x, int y);
 	int getX(int x);
 	int getY(int y);
 };

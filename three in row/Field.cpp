@@ -42,7 +42,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 			else if (field[i][j].getType() == FigureType::circle)
 			{
 				sf::CircleShape r;
-				r.setFillColor(sf::Color::Red);
+				r.setFillColor(sf::Color(218, 11, 81));
 				r.setPosition(sf::Vector2f(getX(i), getY(j)));
 				r.setRadius(objSize/2);
 				window.draw(r);
@@ -53,7 +53,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				r.setPointCount(3);
 				r.setRadius(objSize / 1.8);
 				r.setPosition(sf::Vector2f(getX(i), getY(j)));
-				r.setFillColor(sf::Color::Blue);
+				r.setFillColor(sf::Color(11, 81, 218));
 				window.draw(r);
 			}
 			else if (field[i][j].getType() == FigureType::rhombus)
@@ -62,7 +62,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				r.setPointCount(4);
 				r.setRadius(objSize / 1.8);
 				r.setPosition(sf::Vector2f(getX(i), getY(j)));
-				r.setFillColor(sf::Color::Magenta);
+				r.setFillColor(sf::Color(128, 0, 128));
 				window.draw(r);
 			}
 		}
@@ -72,4 +72,16 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 void Field::setFigure(FigureType type, int x, int y)
 {
 	field[x][y] = Object(type, x, y);
+}
+
+void Field::swap(int x1, int y1, int x2, int y2)
+{
+	Object temp = field[x1][y1];
+	field[x1][y1] = field[x2][y2];
+	field[x2][y2] = temp;
+}
+
+Object Field::getFigure(int x, int y)
+{
+	return field[x][y];
 }

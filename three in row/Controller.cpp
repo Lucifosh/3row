@@ -16,7 +16,7 @@ sf::Vector2i Controller::transtlate(sf::Vector2i coor)
 		}
 		if (x > -1 && y > -1)
 		{
-			field.setFigure(FigureType::circle, x, y);
+			//field.setFigure(FigureType::circle, x, y);
 			break;
 		}
 	}

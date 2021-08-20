@@ -1,4 +1,5 @@
 #include "Move.h"
+#include "Object.h"
 
 bool Move::tryToMove(int a1, int b1, int a2, int b2)
 {
@@ -7,7 +8,11 @@ bool Move::tryToMove(int a1, int b1, int a2, int b2)
 	if (a1 < 0 || a2 < 0 || b1 < 0 || b2 < 0)
 		return false;
 	
+	field.swap(a1, b1, a2, b2);
 
+	Object temp;
+
+	return true;
 }
 
 Move::Move(Field& f)
