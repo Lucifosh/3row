@@ -7,6 +7,7 @@
 #include "Move.h"
 #include <cstdlib>
 #include <ctime>
+#include "Gravity.h"
 
 enum class EControllerState
 {
@@ -26,18 +27,21 @@ int main()
 
 	sf::RenderWindow w(vm, "t", sf::Style::Fullscreen);
 
-	Field field(10);
+	int size = 10;
+	Field field(size);
 	field.Draw(w, vm);
 
 	Controller controller(field);
 
 	Move move(field);
 
+	Gravity gravity(field);
+
 	srand(time(0));
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < size; i++)
 	{
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < size; j++)
 		{
 			int temp = rand() % 4;
 			if (temp == 0)
@@ -48,7 +52,10 @@ int main()
 				field.setFigure(FigureType::rhombus, i, j);
 			else if(temp == 3)
 				field.setFigure(FigureType::triangle, i, j);
+
+				std::cout << temp << ' ';
 		}
+		std::cout << '\n';
 	}
 
 	sf::Vector2i posFigure;
@@ -57,6 +64,7 @@ int main()
 	
 	while (w.isOpen())
 	{
+		bool droped = false;
 		w.clear(sf::Color::Black);
 
 		sf::Event e;
@@ -77,32 +85,43 @@ int main()
 				if (sf::Mouse::getPosition().x - pos.x >= field.objSize)
 				{
 					//move right
-					move.move(posFigure.x, posFigure.y, posFigure.x + 1, posFigure.y);
+					move.move(posFigure.x, posFigure.y, posFigure.x, posFigure.y + 1);
 					state = EControllerState::none;
 				}
 				else if (sf::Mouse::getPosition().x - pos.x <= field.objSize * -1)
 				{
 					//move left
-					move.move(posFigure.x, posFigure.y, posFigure.x-1, posFigure.y);
+					/*move.move(posFigure.x, posFigure.y, posFigure.x-1, posFigure.y);
+					state = EControllerState::none;*/
+					move.move(posFigure.x, posFigure.y, posFigure.x, posFigure.y - 1);
 					state = EControllerState::none;
 				}
 
 				if (sf::Mouse::getPosition().y - pos.y >= field.objSize)
 				{
 					//move down
-					move.move(posFigure.x, posFigure.y, posFigure.x, posFigure.y + 1);
+					
+					move.move(posFigure.x, posFigure.y, posFigure.x + 1, posFigure.y);
 					state = EControllerState::none;
 				}
 				else if (sf::Mouse::getPosition().y - pos.y <= field.objSize * -1)
 				{
 					//move up
-					move.move(posFigure.x, posFigure.y, posFigure.x, posFigure.y - 1);
+					/**/
+					
+					move.move(posFigure.x, posFigure.y, posFigure.x - 1, posFigure.y);
 					state = EControllerState::none;
 				}
 			}
 		}
 
 		field.Draw(w, vm);
+
+		gravity.add();
+		
+		gravity.drop();
+
+		move.checkAndDelete();
 		
 
 		w.display();

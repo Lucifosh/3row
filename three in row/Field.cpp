@@ -2,11 +2,15 @@
 #include <iostream>
 int Field::getX(int x)
 {
-	return vm.width / 2 - vm.height / 15 / 2 + (x - (size / 2)) * (vm.height / 15) + vm.height / 30 * (x - (size / 2));
+	int indent = vm.width / (size);
+
+	return indent*2 + indent * 0.5 * x;
 }
 int Field::getY(int y)
 {
-	return vm.height / 35 + vm.height / 15 * y + vm.height / 30 * y;
+	int indent = vm.height / (size + 0.5);
+
+	return indent * 0.5 + indent * y;
 }
 Field::Field(int size)
 {
@@ -35,7 +39,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 			{
 				sf::RectangleShape r;
 				r.setFillColor(sf::Color(11, 218, 81));
-				r.setPosition(sf::Vector2f(getX(i), getY(j)));
+				r.setPosition(sf::Vector2f(getX(j), getY(i)));
 				r.setSize(sf::Vector2f(objSize, objSize));
 				window.draw(r);
 			}
@@ -43,7 +47,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 			{
 				sf::CircleShape r;
 				r.setFillColor(sf::Color(218, 11, 81));
-				r.setPosition(sf::Vector2f(getX(i), getY(j)));
+				r.setPosition(sf::Vector2f(getX(j), getY(i)));
 				r.setRadius(objSize/2);
 				window.draw(r);
 			}
@@ -52,7 +56,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				sf::CircleShape r;
 				r.setPointCount(3);
 				r.setRadius(objSize / 1.8);
-				r.setPosition(sf::Vector2f(getX(i), getY(j)));
+				r.setPosition(sf::Vector2f(getX(j), getY(i)));
 				r.setFillColor(sf::Color(11, 81, 218));
 				window.draw(r);
 			}
@@ -61,7 +65,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				sf::CircleShape r;
 				r.setPointCount(4);
 				r.setRadius(objSize / 1.8);
-				r.setPosition(sf::Vector2f(getX(i), getY(j)));
+				r.setPosition(sf::Vector2f(getX(j), getY(i)));
 				r.setFillColor(sf::Color(128, 0, 128));
 				window.draw(r);
 			}

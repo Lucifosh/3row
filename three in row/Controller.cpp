@@ -16,11 +16,11 @@ sf::Vector2i Controller::transtlate(sf::Vector2i coor)
 		}
 		if (x > -1 && y > -1)
 		{
-			//field.setFigure(FigureType::circle, x, y);
+			//field.setFigure(FigureType::circle, y, x);
 			break;
 		}
 	}
-	return sf::Vector2i(x, y);
+	return sf::Vector2i(y, x);
 }
 
 Controller::Controller(Field& f)
