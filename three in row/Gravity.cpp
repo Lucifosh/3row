@@ -1,28 +1,42 @@
 #include "Gravity.h"
-#include <thread>
-#include <chrono>
+#include "Anim.h"
 
-Gravity::Gravity(Field field)
-{
-	this->field = field;
-}
-
-bool Gravity::drop()
+bool Gravity::drop(Move &m)
 {
 	bool d = false;
-	for (int i = field.size - 1; i > 0; i--)
+	for (int i = 0; i < field.size-1; i++)
 	{
-		for (int j = field.size - 1; j >= 0; j--)
+		for (int j = 0; j < field.size; j++)
 		{
-			if (field.getFigure(i, j).getType() == FigureType::none)
+			if (field.getFigure(i+1, j).getType() == FigureType::none)
 			{
-				field.setFigure(field.getFigure(i-1, j).getType(), i, j);
-				field.setFigure(FigureType::none, i - 1, j);
+				m.move(AnimState::Down, i, j, lastDrop(i+1, j), j);
+				//field.swap(i, j, i + 1, j);
 				d = true;
 			}
 		}
 	}
 	return d;
+}
+
+int Gravity::lastDrop(int x, int y)
+{
+	int k = 1;
+	while (true)
+	{
+		if (x - k >= 0)
+		{
+			if (field.getFigure(x + k, y).getType() == FigureType::none)
+			{
+				k++;
+			}
+			else
+			{
+				k--;
+				return x - k;
+			}
+		}
+	}
 }
 
 void Gravity::add()

@@ -24,6 +24,7 @@ Field::Field(int size)
 
 Field::Field()
 {
+
 }
 
 void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
@@ -39,7 +40,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 			{
 				sf::RectangleShape r;
 				r.setFillColor(sf::Color(11, 218, 81));
-				r.setPosition(sf::Vector2f(getX(j), getY(i)));
+				r.setPosition(sf::Vector2f(getX(j) + field[i][j].getShiftY(), getY(i) + field[i][j].getShiftX()));
 				r.setSize(sf::Vector2f(objSize, objSize));
 				window.draw(r);
 			}
@@ -47,7 +48,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 			{
 				sf::CircleShape r;
 				r.setFillColor(sf::Color(218, 11, 81));
-				r.setPosition(sf::Vector2f(getX(j), getY(i)));
+				r.setPosition(sf::Vector2f(getX(j) + field[i][j].getShiftY(), getY(i) + field[i][j].getShiftX()));
 				r.setRadius(objSize/2);
 				window.draw(r);
 			}
@@ -56,7 +57,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				sf::CircleShape r;
 				r.setPointCount(3);
 				r.setRadius(objSize / 1.8);
-				r.setPosition(sf::Vector2f(getX(j), getY(i)));
+				r.setPosition(sf::Vector2f(getX(j) + field[i][j].getShiftY(), getY(i) + field[i][j].getShiftX()));
 				r.setFillColor(sf::Color(11, 81, 218));
 				window.draw(r);
 			}
@@ -65,7 +66,7 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 				sf::CircleShape r;
 				r.setPointCount(4);
 				r.setRadius(objSize / 1.8);
-				r.setPosition(sf::Vector2f(getX(j), getY(i)));
+				r.setPosition(sf::Vector2f(getX(j) + field[i][j].getShiftY(), getY(i) + field[i][j].getShiftX()));
 				r.setFillColor(sf::Color(128, 0, 128));
 				window.draw(r);
 			}
@@ -76,6 +77,11 @@ void Field::Draw(sf::RenderWindow& window, sf::VideoMode vm)
 void Field::setFigure(FigureType type, int x, int y)
 {
 	field[x][y] = Object(type, x, y);
+}
+
+void Field::setFigure(Object o, int x, int y)
+{
+	field[x][y] = o;
 }
 
 void Field::swap(int x1, int y1, int x2, int y2)
